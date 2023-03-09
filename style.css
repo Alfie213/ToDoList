@@ -13,13 +13,14 @@ header a {
 
 footer {
 	text-align: center;
-	background: rgb(212, 255, 0);
+	/* background: rgb(212, 255, 0); */
+	background: #2ca08b;
 }
 
-/* Как задать????? */
 .content {
     min-height: 500px;
-    background-color: #2b00ff;
+    /* background-color: #2b00ff; */
+    background-color: #3b43de;
 }
 
 .icon {
@@ -97,4 +98,28 @@ footer {
 
 .sub {
     
+}
+
+.coolText
+{
+    color: #0ef67a; font-family: ‘Raleway’,sans-serif; font-size: 18px; font-weight: 500; line-height: 32px; margin: 0 0 24px;
+}
+
+.tsk
+{
+    /* border-left: 5px solid #1E90FF;
+	border-right: 5px dotted #1E90FF;
+	border-top: 5px double #1E90FF;
+	border-bottom: 5px dashed #1E90FF;
+	padding: 3px;
+	margin-bottom: 5px; */
+
+
+    width: 500px; 
+	height: 60px; 
+	border: 1px solid #DEB887; 	
+	border-left: 2px dashed #006400; 
+	background: #b43b4a; 
+	padding: 5px; 
+	margin-bottom: 5px; 
 }

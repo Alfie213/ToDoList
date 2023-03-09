@@ -51,7 +51,7 @@
             <li>
             <div class='tsk'>
                
-                    <label>".$result['task']."</label>
+                    <label class='coolText'>".$result['task']."</label>
                     <button type='submit' name='done' value='".$result['id']."'>Checked/Unchecked</button>
 
                     <input type='checkbox' name='checkbox' disabled='disabled' value='".$result['id']."'");
