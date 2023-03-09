@@ -1,5 +1,5 @@
 <?php
 
-$var = 5;
+static $var = 5;
 
 ?>
