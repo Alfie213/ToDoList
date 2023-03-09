@@ -66,8 +66,7 @@
 
                     print("
                     <button type='submit' name='edit' value='".$result['id']."'>Редактировать</button>
-                    <input type='submit' name='delete' value='".$result['id']."'> Удалить
-                
+                    <button type='submit' name='delete' value='".$result['id']."'>Удалить</button>
             </div>
             </li>
             ");
