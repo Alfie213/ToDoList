@@ -73,6 +73,35 @@
             ");
         }
         print("</form>");
+
+        if(file_get_contents('form.php'))
+        {
+            require('form.php');
+            print("
+            <div id='registration'>
+                <div id='blackout'>
+                    <div id='window'>
+                        <p> Changing name </p>
+                        <p> Type new name: </p>
+                        <form action='todolist.php' method='get'>
+                        <input type='text' name='name' placeholder='Type new Name' value='".$name."'>
+                        <!-- <p> Password: </p>
+                        <input type='password' name='password' placeholder='Type your password'> -->
+
+                        <button type='submit' name='change' value='"."$id"."'>Change name</button>
+                        <a href='./todolist.php?name=someVal&close=' class='close'> Закрыть окно </a>
+                        </form>
+                    </div>
+                </div>
+            </div>  
+            ");
+        }
+        if(isset($_REQUEST['close']))
+        {
+            $fp = fopen("form.php", "a"); // Открываем файл в режиме записи
+            file_put_contents("form.php", ''); // Стираем содержимое.
+            header('Location: index.php');
+        }
         ?>
     </ul>
 </div>
@@ -123,17 +152,6 @@ if(isset($_REQUEST['delete']))
 
 if(isset($_REQUEST['edit']))
 {
-    $fp = fopen("form.php", "a"); // Открываем файл в режиме записи
-    file_put_contents("form.php", ''); // Стираем содержимое.
-    $mytext =
-    '<?php
-        $id = '.$_REQUEST['edit'].';
-    ?>'; // Исходная строка
-    $test = fwrite($fp, $mytext); // Запись в файл
-    // if ($test) echo 'Данные в файл успешно занесены.';
-    // else echo 'Ошибка при записи в файл.';
-    fclose($fp); //Закрытие файла
-
     require('data.php');
     $con = mysqli_connect($host, $user, $pas) or die ('Error con');
     mysqli_select_db($con, $db) or die ('Error db');
@@ -145,27 +163,42 @@ if(isset($_REQUEST['edit']))
     {
         $name = $result['task'];
     }
-    // print($name);
+    
+    $fp = fopen("form.php", "a"); // Открываем файл в режиме записи
+    file_put_contents("form.php", ''); // Стираем содержимое.
+    $mytext =
+    '<?php
+        $id = '.$_REQUEST['edit'].';
+        $name = "'.$name.'";
+    ?>'; // Исходная строка
+    $test = fwrite($fp, $mytext); // Запись в файл
+    // if ($test) echo 'Данные в файл успешно занесены.';
+    // else echo 'Ошибка при записи в файл.';
+    fclose($fp); //Закрытие файла
+    
+    header('Location: index.php');
+    
 
-    require('form.php');
-    print("
-    <div id='registration'>
-        <div id='blackout'>
-            <div id='window'>
-                <p> Changing name </p>
-                <p> Type new name: </p>
-                <form action='todolist.php' method='get'>
-                <input type='text' name='name' placeholder='Type new Name' value='"."$name"."'>
-                <!-- <p> Password: </p>
-                <input type='password' name='password' placeholder='Type your password'> -->
+    // require('form.php');
+    // print("
+    // <div id='registration'>
+    //     <div id='blackout'>
+    //         <div id='window'>
+    //             <p> Changing name </p>
+    //             <p> Type new name: </p>
+    //             <form action='todolist.php' method='get'>
+    //             <input type='text' name='name' placeholder='Type new Name' value='"."$name"."'>
+    //             <!-- <p> Password: </p>
+    //             <input type='password' name='password' placeholder='Type your password'> -->
 
-                <button type='submit' name='change' value='"."$id"."'>Change name</button>
-                <a href='./index.php' class='close'> Закрыть окно </a>
-                </form>
-            </div>
-        </div>
-    </div>  
-    ");
+    //             <button type='submit' name='change' value='"."$id"."'>Change name</button>
+
+    //             <a href='./index.php' class='close'> Закрыть окно </a>
+    //             </form>
+    //         </div>
+    //     </div>
+    // </div>  
+    // ");
 }
 if(isset($_REQUEST['change']))
 {
@@ -174,6 +207,8 @@ if(isset($_REQUEST['change']))
     mysqli_select_db($con, $db) or die ('Error db');
     $upd = "UPDATE `tasks` SET `task`='".$_REQUEST['name']."' WHERE `id`='".$_REQUEST['change']."'";
     mysqli_query($con, $upd);
+    $fp = fopen("form.php", "a"); // Открываем файл в режиме записи
+    file_put_contents("form.php", ''); // Стираем содержимое.
     header('Location: index.php');
 }
 ?>
