@@ -19,21 +19,6 @@
         }
     }
 ?>
-<div id="registration">
-	<div id="blackout">
-		<div id="window">
-			<p> Окно редактирования задачи </p>
-			<p> name: </p>
-			<input type="text" placeholder="Type new name">
-			<!-- <p> Password: </p> -->
-			<!-- <input type="password" placeholder="Type your password"> -->
-
-			<a href="#" class="close"> Изменить имя (я не работаю) </a>
-			<a href="#" class="close"> Закрыть окно </a>
-		</div>
-	</div>
-</div>
-
 <div class="content">
     <form action="" method="get">
         <input type="text" name="tasks" id="tasks" placeholder="task">
@@ -49,33 +34,35 @@
         $request = "SELECT * FROM tasks WHERE idUser = '".$_SESSION["idUser"]."'";
         // print( $request);
         $res = mysqli_query($con, $request);
+        print("<form action='todolist.php' method='get'>");
         foreach($res as $result)
         {
             print("
             <li>
             <div class='tsk'>
-                <form action='' method='get'>
+               
                     <label>".$result['task']."</label>
-                    <input type='submit' name='done' value='".$result['id']."'>
+                    <button type='submit' name='done' value='".$result['id']."'>Checked/Unchecked</button>
 
-                    <input type='checkbox' disabled='disabled'");
+                    <input type='checkbox' name='checkbox' disabled='disabled' value='".$result['id']."'");
                     if($result['isDone'] == 1)
                     {
-                        print(' checked>');
+                        print("checked>");
                     }
                     else
                     {
-                        print('>');
+                        print(">");
                     }
 
                     print("
-                    <input type='submit' name='edit' value='".$result['id']."'> <a href='#registration'>Редактировать</a>
+                    <input type='submit' name='edit' value='".$result['id']."'> Редактировать
                     <input type='submit' name='delete' value='".$result['id']."'> Удалить
-                </form>
+                
             </div>
             </li>
             ");
         }
+        print("</form>");
         ?>
     </ul>
 </div>
@@ -95,7 +82,20 @@ if(isset($_REQUEST['done']))
     require('data.php');
     $con = mysqli_connect($host, $user, $pas) or die ('Error con');
     mysqli_select_db($con, $db) or die ('Error db');
-    $upd = "UPDATE `tasks` SET `isDone`='"."1"."' WHERE `id`='".$_REQUEST['done']."'";
+    $request = "SELECT `isDone` FROM `tasks` WHERE `id`='".$_REQUEST['done']."'";
+    $res = mysqli_query($con, $request);
+    foreach($res as $result)
+    {
+        $res = $result['isDone'];
+    }
+    if($res)
+    {
+        $upd = "UPDATE `tasks` SET `isDone`='0' WHERE `id`='".$_REQUEST['done']."'";
+    }
+    else
+    {
+        $upd = "UPDATE `tasks` SET `isDone`='1' WHERE `id`='".$_REQUEST['done']."'";
+    }
     mysqli_query($con, $upd);
     header('Location: index.php');
 }
@@ -113,6 +113,6 @@ if(isset($_REQUEST['delete']))
 
 if(isset($_REQUEST['edit']))
 {
-    
+    header('Location: index.php');
 }
 ?>
