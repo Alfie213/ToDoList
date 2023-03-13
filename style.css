@@ -12,6 +12,10 @@ header a {
 }
 
 footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 	text-align: center;
 	/* background: rgb(212, 255, 0); */
 	background: #2ca08b;
