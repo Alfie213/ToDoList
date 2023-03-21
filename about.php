@@ -15,9 +15,55 @@ printNAME();
 printEMAIL();
 printNumberOfTasks();
 
+print("
+    <form action='about.php' method='get'>
+        <label>Changing of password</label>
+        <input type='text' name='current' placeholder='Type your current password'>
+        <input type='text' name='new' placeholder='Type new password'>
+        <input type='submit' name='change' value='Change'>
+    </form>
+");
+
 require('about.html');
 
 require('footer.html');
+
+?>
+
+<?php
+
+if(isset($_REQUEST['change']))
+{
+    if($_REQUEST['current'] and $_REQUEST['new']) {}
+    else
+    {
+        echo "<script>alert('Пароли должны быть непустыми!')</script>";
+        return;
+    }
+    // Здесь нужно запросить текущий пароль и сравнить с $_REQUEST['current']
+    require('data.php');
+    $con = mysqli_connect($host, $user, $pas) or die ('Error con');
+    mysqli_select_db($con, $db) or die ('Error db');
+    $select = "SELECT `password` FROM `users` WHERE `id_user`='".$_SESSION["idUser"]."'";
+    $res = mysqli_query($con, $select);
+    foreach($res as $result)
+    {
+        if($result["password"] == $_REQUEST['current'])
+        {
+            require('data.php');
+            $con = mysqli_connect($host, $user, $pas) or die ('Error con');
+            mysqli_select_db($con, $db) or die ('Error db');
+            $update = "UPDATE `users` SET `password`=".$_REQUEST['new']." WHERE `id_user`='".$_SESSION["idUser"]."'";
+            mysqli_query($con, $update);
+        }
+        else
+        {
+            echo "<script>alert('Текущий пароль введен неверно!')</script>";
+            return;
+        }
+    }
+    header("Location: about.php");
+}
 
 ?>
 
