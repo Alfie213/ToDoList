@@ -1,18 +1,58 @@
-const zone1 = document.querySelector('.zone-1');
-const zone2 = document.querySelector('.zone-2');
+let zone1 = document.querySelector('.zone1');
+const zone2 = document.querySelector('.zone2');
 
 const ufo = document.querySelector('#ufo');
 
-zone1.ondragover = allowDrop;
 
-function allowDrop(event)
-{
-    event.preventDefault();
-}
+// zone1.ondragover = allowDrop;
+// zone2.ondragover = allowDrop;
 
-ufo.ondragstart = drag;
+// function allowDrop(event)
+// {
+//     event.preventDefault();
+// }
 
-function drag(event)
-{
+// ufo.ondragstart = drag;
+
+// function drag(event)
+// {
+//     event.dataTransfer.setData('id', event.target.id);
+// }
+
+// zone1.ondrop = drop;
+// zone2.ondrop = drop;
+
+// function drop(event)
+// {
+//     let itemId = event.dataTransfer.getData('id');
+//     console.log(itemId);
+//     event.target.append(document.getElementById(itemId));
+// }
+// zone1.addEventListener ('click', ()=>{
+//     console.log('hhh');
+// })
+
+
+zone1.addEventListener('dragstart', (event)=> {
+    console.log('hhhgvghj');
+    zone1.classList.add('selected');
     event.dataTransfer.setData('id', event.target.id);
-}
+})
+
+zone1.addEventListener('dragend', (event)=> {
+    console.log('hhhgvghj');
+    zone1.classList.remove('selected');
+    //event.dataTransfer.setData('id', event.target.id);
+})
+
+
+
+zone2.addEventListener('drop', (event)=> {
+    console.log('drop');
+    event.preventDefault();
+    zone1.innerHTML="<h1>dfdfgdfg</h1>";
+})
+
+zone2.addEventListener('dragover', (event)=> {
+    event.preventDefault();
+})

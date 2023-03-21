@@ -21,7 +21,7 @@ require('todolist.php');
         <img id="ufo" src="./ufo.png" draggable="true">
     </div>
 </div>
-<script src="./drop.js"></script>
+<script src="drop.js"></script>
 
 <?php
 
