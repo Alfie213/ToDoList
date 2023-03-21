@@ -13,7 +13,17 @@ require('header.html');
 
 require('todolist.php');
 
-require('footer.html');
+?>
+
+<div id="container">
+    <div class="zone1"></div>
+    <div class="zone2"><img id="ufo" src="./ufo.png"></div>
+</div>
+<script src="./drop.js"></script>
+
+<?php
+
+// require('footer.html');
 
 ?>
 
