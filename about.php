@@ -64,6 +64,7 @@ function printUndoneNum()
 
 require('header.html');
 
+print("<div class='about-border'>");
 printID();
 printNAME();
 printEMAIL();
@@ -74,9 +75,14 @@ print("
         <label>Changing of password</label>
         <input type='text' name='current' placeholder='Type your current password'>
         <input type='text' name='new' placeholder='Type new password'>
-        <input type='submit' name='change' value='Change'>
+        <input type='submit' name='changePassword' value='Change'>
+        <br>
+        <label>Changing of name</label>
+        <input type='text' name='newName' placeholder='Type your new name'>
+        <input type='submit' name='changeName' value='Change'>
     </form>
 ");
+print("</div>");
 
 print("<div id='air' style='width: 500px; height: 400px;'></div>");
 
@@ -86,7 +92,7 @@ require('footer.html');
 
 <?php
 
-if(isset($_REQUEST['change']))
+if(isset($_REQUEST['changePassword']))
 {
     if($_REQUEST['current'] and $_REQUEST['new']) {}
     else
@@ -116,6 +122,18 @@ if(isset($_REQUEST['change']))
             return;
         }
     }
+    header("Location: about.php");
+}
+
+if(isset($_REQUEST['changeName']))
+{
+    require('data.php');
+    $con = mysqli_connect($host, $user, $pas) or die ('Error con');
+    mysqli_select_db($con, $db) or die ('Error db');
+    $update = "UPDATE `users` SET `name`='".$_REQUEST['newName']."' WHERE `id_user`='".$_SESSION["idUser"]."'";
+    print($update);
+    mysqli_query($con, $update);
+    // echo "<script>alert('Имя изменено!')</script>";
     header("Location: about.php");
 }
 
