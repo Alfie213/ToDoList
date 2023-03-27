@@ -45,6 +45,7 @@
         // print( $request);
         $res = mysqli_query($con, $request);
         print("<form action='todolist.php' method='get'>");
+        print("<ul style='list-style-type: none;'>");
         foreach($res as $result)
         {
             print("
@@ -71,6 +72,7 @@
             </li>
             ");
         }
+        print("</ul>");
         print("</form>");
 
         if(file_get_contents('form.php'))
