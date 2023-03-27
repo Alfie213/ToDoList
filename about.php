@@ -9,10 +9,12 @@
 <!-- echo '<script type="text/javascript">',
      'alert("hi"); WRITE CODE HERE',
      '</script>';!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<?php
 
-<script src="https://www.google.com/jsapi"></script>
+print("
+<script src='https://www.google.com/jsapi'></script>
 <script>
-google.load("visualization", "1", {packages:["corechart"]});
+google.load('visualization', '1', {packages:['corechart']});
 google.setOnLoadCallback(drawChart);
 function drawChart() {
 var data = google.visualization.arrayToDataTable([
@@ -28,7 +30,10 @@ var chart = new google.visualization.PieChart(document.getElementById('air'));
 chart.draw(data, options);
 }
 </script>
-     
+");
+
+?>
+
 <?php
 
 require('header.html');
