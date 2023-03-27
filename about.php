@@ -6,6 +6,29 @@
     }
 ?>
 
+<!-- echo '<script type="text/javascript">',
+     'alert("hi"); WRITE CODE HERE',
+     '</script>';!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+<script src="https://www.google.com/jsapi"></script>
+<script>
+google.load("visualization", "1", {packages:["corechart"]});
+google.setOnLoadCallback(drawChart);
+function drawChart() {
+var data = google.visualization.arrayToDataTable([
+    ['Газ', 'Объём'],
+    ['Done',     78.09],
+    ['Undone', 20.95],
+]);
+var options = {
+    title: 'Done/Undone',
+    is3D: false
+};
+var chart = new google.visualization.PieChart(document.getElementById('air'));
+chart.draw(data, options);
+}
+</script>
+     
 <?php
 
 require('header.html');
@@ -23,6 +46,8 @@ print("
         <input type='submit' name='change' value='Change'>
     </form>
 ");
+
+print("<div id='air' style='width: 500px; height: 400px;'></div>");
 
 require('footer.html');
 
