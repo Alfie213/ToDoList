@@ -24,8 +24,6 @@ print("
     </form>
 ");
 
-require('about.html');
-
 require('footer.html');
 
 ?>
