@@ -109,6 +109,25 @@ footer {
     color: #0ef67a; font-family: ‘Raleway’,sans-serif; font-size: 18px; font-weight: 500; line-height: 32px; margin: 0 0 24px;
 }
 
+.container {
+    display: flex;
+    justify-content: left;
+}
+  
+.tasks__title {
+    margin: 50px 0 20px 0;
+    
+    text-align: center;
+    text-transform: uppercase;
+}
+  
+.tasks__list {
+    margin: 0;
+    padding: 0;
+    
+    list-style: none;
+}
+  
 .tsk
 {
     /* border-left: 5px solid #1E90FF;
@@ -117,8 +136,6 @@ footer {
 	border-bottom: 5px dashed #1E90FF;
 	padding: 3px;
 	margin-bottom: 5px; */
-
-
     width: 500px; 
 	height: 60px; 
 	border: 1px solid #DEB887; 	
@@ -127,46 +144,11 @@ footer {
 	padding: 5px; 
 	margin-bottom: 5px; 
 }
-
-#ufo
-{
-    width: 100px;
-    height: 100px;
+  
+.tasks__item:last-child {
+    margin-bottom: 0;
 }
-
-.container{
-
-    display: flex;
-
-    flex-direction: row;
-
-    justify-content: flex-start;
-
-    border: 5px solid black;
-
-    padding: 20px;
-}
-
-.zone1, zone2
-{
-    display: inline-block;
-}
-
-.zone1
-{
-    width: 100%;
-    background-color: rgb(0, 187, 255);
-    height: 150px;
-    border: 3px solid #1bd3ef; 
-}
-
+  
 .selected {
-    background-color: orange;
-}
-.zone2
-{
-    width: 100%;
-    background-color: rgb(166, 0, 255);
-    height: 150px;
-    border: 3px solid #7a1bef; 
+    opacity: 0.6;
 }

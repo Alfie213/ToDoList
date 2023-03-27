@@ -1,29 +1,50 @@
-const zone1 = document.querySelector('.zone1');
-const zone2 = document.querySelector('.zone2');
+const tasksListElement = document.querySelector(`.tasks__list`);
+const taskElements = tasksListElement.querySelectorAll(`.tsk`);
 
-const ufo = document.querySelector('#ufo');
-
-zone1.ondragover = allowDrop;
-zone2.ondragover = allowDrop;
-
-function allowDrop(event)
-{
-    event.preventDefault();
+for (const task of taskElements) {
+  task.draggable = true;
 }
 
-ufo.ondragstart = drag;
+tasksListElement.addEventListener(`dragstart`, (evt) => {
+  evt.target.classList.add(`selected`);
+});
 
-function drag(event)
-{
-    event.dataTransfer.setData('id', event.target.id);
-}
+tasksListElement.addEventListener(`dragend`, (evt) => {
+  evt.target.classList.remove(`selected`);
+});
 
-zone1.ondrop = drop;
-zone2.ondrop = drop;
+const getNextElement = (cursorPosition, currentElement) => {
+  const currentElementCoord = currentElement.getBoundingClientRect();
+  const currentElementCenter = currentElementCoord.y + currentElementCoord.height / 2;
+  
+  const nextElement = (cursorPosition < currentElementCenter) ?
+    currentElement :
+    currentElement.nextElementSibling;
+  
+  return nextElement;
+};
 
-function drop(event)
-{
-    let itemId = event.dataTransfer.getData('id');
-    console.log(itemId);
-    event.target.append(document.getElementById(itemId));
-}
+tasksListElement.addEventListener(`dragover`, (evt) => {
+  evt.preventDefault();
+  
+  const activeElement = tasksListElement.querySelector(`.selected`);
+  const currentElement = evt.target;
+  const isMoveable = activeElement !== currentElement &&
+    currentElement.classList.contains(`tsk`);
+    
+  if (!isMoveable) {
+    return;
+  }
+  
+  const nextElement = getNextElement(evt.clientY, currentElement);
+  
+  if (
+    nextElement && 
+    activeElement === nextElement.previousElementSibling ||
+    activeElement === nextElement
+  ) {
+    return;
+  }
+		
+	tasksListElement.insertBefore(activeElement, nextElement);
+});

@@ -44,36 +44,37 @@
         $request = "SELECT * FROM tasks WHERE idUser = '".$_SESSION["idUser"]."'";
         // print( $request);
         $res = mysqli_query($con, $request);
+        print("<div class='container'>");
+        print("<section class='tasks'>");
         print("<form action='todolist.php' method='get'>");
-        print("<ul style='list-style-type: none;'>");
+        print("<ul class='tasks__list'>");
         foreach($res as $result)
         {
             print("
-            <li>
-            <div class='tsk'>
-               
-                    <label class='coolText'>".$result['task']."</label>
-                    <button type='submit' name='done' value='".$result['id']."'>Checked/Unchecked</button>
+            <li class='tsk'>
+                <label class='coolText'>".$result['task']."</label>
+                <button type='submit' name='done' value='".$result['id']."'>Checked/Unchecked</button>
 
-                    <input type='checkbox' name='checkbox' disabled='disabled' value='".$result['id']."'");
-                    if($result['isDone'] == 1)
-                    {
-                        print("checked>");
-                    }
-                    else
-                    {
-                        print(">");
-                    }
+                <input type='checkbox' name='checkbox' disabled='disabled' value='".$result['id']."'");
+                if($result['isDone'] == 1)
+                {
+                    print("checked>");
+                }
+                else
+                {
+                    print(">");
+                }
 
-                    print("
-                    <button type='submit' name='edit' value='".$result['id']."'>Редактировать</button>
-                    <button type='submit' name='delete' value='".$result['id']."'>Удалить</button>
-            </div>
+                print("
+                <button type='submit' name='edit' value='".$result['id']."'>Редактировать</button>
+                <button type='submit' name='delete' value='".$result['id']."'>Удалить</button>
             </li>
             ");
         }
         print("</ul>");
         print("</form>");
+        print("</section>");
+        print("</div>");
 
         if(file_get_contents('form.php'))
         {
