@@ -18,19 +18,45 @@ google.load('visualization', '1', {packages:['corechart']});
 google.setOnLoadCallback(drawChart);
 function drawChart() {
 var data = google.visualization.arrayToDataTable([
-    ['Газ', 'Объём'],
-    ['Done',     78.09],
-    ['Undone', 20.95],
+    ['Task', 'isDone'],
+    ['Done',     ".printDoneNum()."],
+    ['Undone', ".printUndoneNum()."],
 ]);
 var options = {
     title: 'Done/Undone',
-    is3D: false
+    is3D: true
 };
 var chart = new google.visualization.PieChart(document.getElementById('air'));
 chart.draw(data, options);
 }
 </script>
 ");
+
+function printDoneNum()
+{
+    require('data.php');
+    $con = mysqli_connect($host, $user, $pas) or die ('Error con');
+    mysqli_select_db($con, $db) or die ('Error db');
+    $query = "SELECT COUNT(`isDone`) FROM `tasks` WHERE `idUser`='".$_SESSION["idUser"]."' AND `isDone` = 1";
+    $res = mysqli_query($con, $query);
+    foreach($res as $result)
+    {
+        return($result['COUNT(`isDone`)']);
+    }
+}
+
+function printUndoneNum()
+{
+    require('data.php');
+    $con = mysqli_connect($host, $user, $pas) or die ('Error con');
+    mysqli_select_db($con, $db) or die ('Error db');
+    $query = "SELECT COUNT(`isDone`) FROM `tasks` WHERE `idUser`='".$_SESSION["idUser"]."' AND `isDone` = 0";
+    $res = mysqli_query($con, $query);
+    foreach($res as $result)
+    {
+        return($result['COUNT(`isDone`)']);
+    }
+}
 
 ?>
 
