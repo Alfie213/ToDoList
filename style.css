@@ -2,13 +2,17 @@ header {
 	min-height: 30px;
 	display:flex;
 	flex-direction:row;
-	background: rgb(255, 255, 255);
+	background: #2ca08b;
 	justify-content: space-around;
 	align-items: center;
 }
 
 header a {
 	 margin-left:20px;
+}
+
+body {
+    background-color: whitesmoke;
 }
 
 footer {
@@ -21,10 +25,14 @@ footer {
 	background: #2ca08b;
 }
 
+.ul {
+    align-self: center;
+    align-items: left;
+}
+
 .content {
     min-height: 500px;
     /* background-color: #2b00ff; */
-    background-color: #3b43de;
 }
 
 .icon {
